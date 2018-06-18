@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <div id="playerChoice">
+      <h1 id="pickBtn"> Pick a sign! Any sign! </h1>
+        <button id="rock" type="button">Rock!</button>
+        <button id="paper" type="button">Paper!</button>
+        <button id="scissors" type="button">Scissors!</button>
+    </div>
+    <p id="roundResult"></p>
+    <p id="gameResult"></p>
+    <script>
+
+    /* Variable Declarations */
+      let playerRock = document.querySelector("#rock").addEventListener("click", function(){writeToP("playerRock", computerPlay(calcNum()))});
+      let playerPaper = document.querySelector("#paper").addEventListener("click", function(){writeToP("playerPaper", computerPlay(calcNum()))});;
+      let playerScissors = document.querySelector("#scissors").addEventListener("click", function(){writeToP("playerScissors", computerPlay(calcNum()))});;
+      let playerWin;
+      let computerWin;
+
+/* Functions */
+      function computerPlay(num) {
+        if (num === 1) {
+          return "Rock!";
+        } else if (num === 2) {
+          return "Paper!";
+        } else {
+          return "Scissors!";
+        }
+      }
+
+      function calcNum() {
+        return Math.floor((Math.random()*3) +1);
+      }
+
+      function playRound(playerSelection, computerSelection) {
+        let winner;
+        if (computerSelection === "Rock!") {
+          if (playerSelection === "playerRock") {
+            return "Oh! It's a tie!";
+          } else if (playerSelection === "playerPaper") {
+            winner = "p";
+            return "You win! Paper beats Rock!";
+          } else {
+            winner = "c";
+            return "You lose! Rock beats Scissors!";
+          }
+        } else if (computerSelection === "Paper!") {
+          if (playerSelection === "playerRock") {
+            winner = "c";
+            return "You lose! Paper beats Rock!";
+          } else if (playerSelection === "playerPaper") {
+            return "Oh! It's a tie!";
+          } else {
+            winner = "p";
+            return "You win! Scissors beats Paper!";
+          }
+        } else {
+          if (playerSelection === "playerRock") {
+            winner = "p";
+            return "You win! Rock beats Scissors!";
+          } else if (playerSelection === "playerPaper") {
+            winner = "c";
+            return "You lose! Scissors beats Paper!";
+          } else {
+            return "Oh! It's a tie!";
+          }
+        }
+      }
+
+      function writeToP(playerSelection, computerSelection) {
+        document.getElementById("roundResult").innerHTML = playRound(playerSelection, computerSelection);
+        document.getElementById("gameResult").innerHTML = game();
+      }
+
+      function game() {
+        while ((playerWin + computerWin < 5)) {
+          if (playRound.winner = "p") {
+            playerWin ++;
+            return `The score is: <br> Player: ${playerWin}  Computer: ${computerWin}`;
+          } else if (playRound.winner = "c") {
+            computerWin ++;
+            return `The score is: <br> Player: ${playerWin}  Computer: ${computerWin}`;
+          } else {
+            return `The score is: <br> Player: ${playerWin}  Computer: ${computerWin}`;
+          }
+        }
+      }
+
+
+    </script>
+  </body>
+</html>
