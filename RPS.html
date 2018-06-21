@@ -12,17 +12,15 @@
         <button id="scissors" type="button">Scissors!</button>
     </div>
     <p id="roundResult"></p>
-    <p id="gameResult"></p>
     <script>
 
-    /* Variable Declarations */
-      let playerRock = document.querySelector("#rock").addEventListener("click", function(){writeToP("playerRock", computerPlay(calcNum()))});
+      let playerRock = document.querySelector("#rock").addEventListener("click", function(){writeToP("playerRock", computerPlay(calcNum()));});
       let playerPaper = document.querySelector("#paper").addEventListener("click", function(){writeToP("playerPaper", computerPlay(calcNum()))});;
       let playerScissors = document.querySelector("#scissors").addEventListener("click", function(){writeToP("playerScissors", computerPlay(calcNum()))});;
-      let playerWin;
-      let computerWin;
+      let roundResult = document.getElementById("roundResult");
+      let playerWin = 0;
+      let computerWin = 0;
 
-/* Functions */
       function computerPlay(num) {
         if (num === 1) {
           return "Rock!";
@@ -38,33 +36,26 @@
       }
 
       function playRound(playerSelection, computerSelection) {
-        let winner;
         if (computerSelection === "Rock!") {
           if (playerSelection === "playerRock") {
             return "Oh! It's a tie!";
           } else if (playerSelection === "playerPaper") {
-            winner = "p";
             return "You win! Paper beats Rock!";
           } else {
-            winner = "c";
             return "You lose! Rock beats Scissors!";
           }
         } else if (computerSelection === "Paper!") {
           if (playerSelection === "playerRock") {
-            winner = "c";
             return "You lose! Paper beats Rock!";
           } else if (playerSelection === "playerPaper") {
             return "Oh! It's a tie!";
           } else {
-            winner = "p";
             return "You win! Scissors beats Paper!";
           }
         } else {
           if (playerSelection === "playerRock") {
-            winner = "p";
             return "You win! Rock beats Scissors!";
           } else if (playerSelection === "playerPaper") {
-            winner = "c";
             return "You lose! Scissors beats Paper!";
           } else {
             return "Oh! It's a tie!";
@@ -72,25 +63,30 @@
         }
       }
 
+// the function activated by the three sign buttons
+
       function writeToP(playerSelection, computerSelection) {
-        document.getElementById("roundResult").innerHTML = playRound(playerSelection, computerSelection);
-        document.getElementById("gameResult").innerHTML = game();
+        document.getElementById("roundResult").innerHTML = game(playRound(playerSelection, computerSelection));
       }
+/* Taking playRound as its argument in function writeToP,
+simulates a round up to full 5 round play on button click */
 
-      function game() {
-        while ((playerWin + computerWin < 5)) {
-          if (playRound.winner = "p") {
-            playerWin ++;
-            return `The score is: <br> Player: ${playerWin}  Computer: ${computerWin}`;
-          } else if (playRound.winner = "c") {
-            computerWin ++;
-            return `The score is: <br> Player: ${playerWin}  Computer: ${computerWin}`;
-          } else {
-            return `The score is: <br> Player: ${playerWin}  Computer: ${computerWin}`;
-          }
+      function game(round) {
+        if ((playerWin + computerWin) === 5) {
+          let winner;
+          (playerWin > computerWin) ? winner = "Congratulations! You have beaten that confounded Computer!" :
+              winner = "Blasted! The Confounded Computer has won again! Well, what did you expect? We have entered their era!";
+          playerWin = 0;
+          computerWin = 0;
+          return winner;
         }
+        if (round.includes("win")) {
+          playerWin ++;
+        } else if (round.includes("lose")) {
+            computerWin ++;
+        }
+        return `${round}<br>The score is:<br>Player: ${playerWin}  Computer: ${computerWin}`;
       }
-
 
     </script>
   </body>
