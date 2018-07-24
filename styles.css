@@ -1,0 +1,27 @@
+#playerChoice {
+
+}
+
+button {
+  width: 300px;
+  height: 200px;
+  border: 2px double black;
+  border-radius: 5px;
+}
+
+.rockhover {
+  background-image: url("RPSphotos/rock2.jpg");
+  background-size: auto 100%;
+
+}
+
+.scissorshover {
+  background-image: url("RPSphotos/scissors.png");
+  background-size: auto 100%;
+}
+
+.paperhover {
+  background-image: url("RPSphotos/paper1.png");
+  background-size: auto 100%;
+
+}
