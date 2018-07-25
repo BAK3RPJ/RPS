@@ -6,9 +6,11 @@
      <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div>
+    <div id = "introduction">
+      <div class = "textImg">
+      </div>
       <h1> A Round of Rock, Paper, Scissors with your Nemesis? </h1>
-      <p id='info'> Rock, Paper Scissors is a popular children's game often used to break ties, decide disagreements or settle stalemates.
+      <p id='info'> Rock, Paper, Scissors is a popular children's game often used to break ties, decide disagreements or settle stalemates.
         <ul> The game consists of the three named signs.<br><br>
           <li> Rock is made by making a fist, and loses to paper, while beating scissors.</li>
           <li> Paper is made by making a flat hand parallel to the ground, and loses to scissors while beating rock </li>
@@ -16,137 +18,17 @@
         </ul>
         The game is considered a zero sum game, because the winner can only do so at the other player's expense, and is a choice tie breaking mechanism as a result.<br>
         It is mentioned as far back as 200 BC during the Han dynasty in China, with many countries creating their own versions.<br>
-        There are many variants to the game with different signs, <a href="https://www.youtube.com/watch?v=kjl6IpKdJu4"> one of which</a>, was popularized on That 70's Show.<br>
+        There are many variants to the game with different signs, <a href="https://www.youtube.com/watch?v=kjl6IpKdJu4"> one of which</a> was popularized on That 70's Show.<br>
         Click <a href="https://en.wikipedia.org/wiki/Rock%E2%80%93paper%E2%80%93scissors#History"> here </a> if you would like to learn more about this class game.
-      <p> Let's see if you can beat the computer in a round of your favorite tie-breaking pasttime. </p>
     </div>
+      <h4> Let's see if you can beat the computer in a round of your favorite tie-breaking pasttime. Choose a sign, and the result will be output below the buttons!  </h4>
     <div id="playerChoice">
       <h2 id="pickBtn"> Pick a sign! Any sign! </h2>
       <button id="rock" type="button"><span id = "rocktext">Rock!</span></button>
       <button id="paper" type="button"><span id ="papertext">Paper!</span></button>
       <button id="scissors" type="button"><span id ='scissorstext'>Scissors!</span></button>
+    <h3 id="roundResult"></h3>
     </div>
-    <p id="roundResult"></p>
-    <script>
-
-      let playerRock = document.querySelector("#rock");
-      let playerPaper = document.querySelector("#paper");
-      let playerScissors = document.querySelector("#scissors");
-      let roundResult = document.getElementById("roundResult");
-      let playerWin = 0;
-      let computerWin = 0;
-
-      playerRock.addEventListener("click", function(){writeToP("playerRock", computerPlay(calcNum()))});
-      playerRock.addEventListener("mouseover", function(){rockHover();});
-      playerRock.addEventListener("mouseout", function(){rockOut();});
-      playerPaper.addEventListener("click", function(){writeToP("playerPaper", computerPlay(calcNum()))});
-      playerPaper.addEventListener("mouseover", function(){paperHover();});
-      playerPaper.addEventListener("mouseout", function(){paperOut();});
-      playerScissors.addEventListener("click", function(){writeToP("playerScissors", computerPlay(calcNum()))});
-      playerScissors.addEventListener("mouseover", function(){scissorsHover();});
-      playerScissors.addEventListener("mouseout", function(){scissorsOut();});
-
-      function rockHover() {
-        playerRock.classList.add("rockhover");
-        document.getElementById('rocktext').style.visibility='hidden';
-      }
-
-      function rockOut() {
-        playerRock.classList.remove("rockhover");
-        document.getElementById('rocktext').style.visibility='visible';
-      }
-
-      function paperHover() {
-        playerPaper.classList.add("paperhover");
-        document.getElementById('papertext').style.visibility='hidden';
-      }
-
-      function paperOut() {
-        playerPaper.classList.remove("paperhover");
-        document.getElementById('papertext').style.visibility='visible';
-      }
-
-      function scissorsHover() {
-        playerScissors.classList.add("scissorshover");
-        document.getElementById('scissorstext').style.visibility='hidden';
-      }
-
-      function scissorsOut() {
-        playerScissors.classList.remove("scissorshover");
-        document.getElementById('scissorstext').style.visibility='visible';
-      }
-
-
-      function computerPlay(num) {
-        if (num === 1) {
-          return "Rock!";
-        } else if (num === 2) {
-          return "Paper!";
-        } else {
-          return "Scissors!";
-        }
-      }
-
-      function calcNum() {
-        return Math.floor((Math.random()*3) +1);
-      }
-
-      function playRound(playerSelection, computerSelection) {
-        if (computerSelection === "Rock!") {
-          if (playerSelection === "playerRock") {
-            return "Oh! It's a tie!";
-          } else if (playerSelection === "playerPaper") {
-            return "You win! Paper beats Rock!";
-          } else {
-            return "You lose! Rock beats Scissors!";
-          }
-        } else if (computerSelection === "Paper!") {
-          if (playerSelection === "playerRock") {
-            return "You lose! Paper beats Rock!";
-          } else if (playerSelection === "playerPaper") {
-            return "Oh! It's a tie!";
-          } else {
-            return "You win! Scissors beats Paper!";
-          }
-        } else {
-          if (playerSelection === "playerRock") {
-            return "You win! Rock beats Scissors!";
-          } else if (playerSelection === "playerPaper") {
-            return "You lose! Scissors beats Paper!";
-          } else {
-            return "Oh! It's a tie!";
-          }
-        }
-      }
-
-// the function activated by the three sign buttons
-
-      function writeToP(playerSelection, computerSelection) {
-        document.getElementById("roundResult").innerHTML = game(playRound(playerSelection, computerSelection));
-      }
-/* Taking playRound as its argument in function writeToP,
-simulates a round up to full 5 round play on button click */
-
-      function game(round) {
-        let score;
-        if (round.includes("win")) {
-          playerWin ++;
-        } else if (round.includes("lose")) {
-            computerWin ++;
-        }
-        score = `${round}<br>The score is:<br>Player: ${playerWin}  Computer: ${computerWin}`;
-
-        if (playerWin === 3 || computerWin === 3) {
-          let winner;
-          (playerWin > computerWin) ? winner = `${score}<br>Congratulations! You have beaten that confounded Computer!` :
-              winner = `${score}<br>Blasted! The Confounded Computer has won again! Well, what did you expect? We have entered their era!`;
-          playerWin = 0;
-          computerWin = 0;
-          return winner;
-        }
-        return score;
-      }
-
-    </script>
+    <script src="RPS.js"> </script>
   </body>
 </html>
